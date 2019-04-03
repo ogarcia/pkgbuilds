@@ -1,0 +1,16 @@
+pkgbase = python-treelib
+	pkgdesc = An efficient implementation of tree data structure in python
+	pkgver = 1.5.1
+	pkgrel = 1
+	url = https://github.com/caesar0301/treelib
+	arch = any
+	license = Apache
+	makedepends = python-setuptools
+	makedepends = python2-setuptools
+	source = https://github.com/caesar0301/treelib/archive/11f0d7b61da39befffc2e4fedb191563923b94ce.tar.gz
+	sha256sums = 1ac42cf481657b8e2d22a42952b5c4671d1c3223add37194380976bc8d62ed76
+
+pkgname = python-treelib
+
+pkgname = python2-treelib
+
