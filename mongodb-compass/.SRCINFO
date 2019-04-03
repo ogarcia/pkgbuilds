@@ -1,0 +1,21 @@
+pkgbase = mongodb-compass
+	pkgdesc = The MongoDB GUI
+	pkgver = 1.17.0
+	pkgrel = 1
+	url = https://www.mongodb.com/products/compass
+	arch = x86_64
+	license = custom
+	depends = alsa-lib
+	depends = gconf
+	depends = gtk2
+	depends = libsecret
+	depends = libxss
+	depends = libxtst
+	depends = nss
+	optdepends = gnome-keyring
+	noextract = mongodb-compass_1.17.0_amd64.deb
+	source = https://downloads.mongodb.com/compass/mongodb-compass_1.17.0_amd64.deb
+	sha256sums = db46ab8098d8be8c88859db2201416cfcc8f92bbc0ce846750df4f3463c0bd20
+
+pkgname = mongodb-compass
+
