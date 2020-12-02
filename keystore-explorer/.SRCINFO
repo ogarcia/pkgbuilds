@@ -1,0 +1,17 @@
+pkgbase = keystore-explorer
+	pkgdesc = KeyStore Explorer is a free GUI replacement for the Java command-line utilities keytool and jarsigner
+	pkgver = 5.4.4
+	pkgrel = 1
+	url = https://keystore-explorer.org
+	arch = any
+	license = GPL3
+	makedepends = gradle
+	makedepends = java-environment
+	depends = java-runtime
+	conflicts = keystore-explorer-bin
+	conflicts = keystore-explorer-git
+	source = keystore-explorer-5.4.4.tar.gz::https://github.com/kaikramer/keystore-explorer/archive/v5.4.4.tar.gz
+	sha256sums = 18d60f452e81ab6009df5e5d7b40d5a6f0aca570efd198de44c7980031bf99b1
+
+pkgname = keystore-explorer
+
