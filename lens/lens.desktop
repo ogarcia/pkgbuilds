@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Lens
+GenericName=Lens
+Comment=The Kubernetes IDE
+Icon=/usr/share/icons/hicolor/512x512/apps/lens.png
+Exec=kontena-lens
+Categories=Network;
+StartupNotify=true
+
