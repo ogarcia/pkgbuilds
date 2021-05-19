@@ -1,0 +1,15 @@
+[Unit]
+Description=A simple, fast and reliable chat server powered by Matrix
+Documentation=https://gitlab.com/famedly/conduit/-/blob/master/README.md
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+DynamicUser=yes
+StateDirectory=conduit
+Environment="CONDUIT_CONFIG=/etc/conduit.conf"
+ExecStart=/usr/bin/conduit
+
+[Install]
+WantedBy=multi-user.target

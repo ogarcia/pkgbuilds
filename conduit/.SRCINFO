@@ -1,0 +1,24 @@
+pkgbase = conduit
+	pkgdesc = A simple, fast and reliable chat server powered by Matrix
+	pkgver = 2021.05.13
+	pkgrel = 1
+	url = https://conduit.rs
+	arch = arm
+	arch = armv6h
+	arch = armv7h
+	arch = aarch64
+	arch = i686
+	arch = x86_64
+	license = Apache
+	makedepends = rustup
+	depends = sqlite
+	backup = etc/conduit.conf
+	source = conduit-2021.05.13.tar.bz2::https://gitlab.com/famedly/conduit/-/archive/767fe76d3ee074246ae87bab562e9b03f395446a/conduit-767fe76d3ee074246ae87bab562e9b03f395446a.tar.bz2
+	source = conduit.conf
+	source = conduit.service
+	sha256sums = 6bd7c15a885eba660a46afdd058c527c14a22943d4dea9adf12882f865d57130
+	sha256sums = 0b1ce7932889bb99c0cc9d205920f3e3bd8cb81483bd18776e28d018a7d78b8a
+	sha256sums = 420d09a21517179fa655b0729d3ae212c92410b1a9951a1a13f2098240c6376e
+
+pkgname = conduit
+

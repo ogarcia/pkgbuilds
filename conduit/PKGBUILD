@@ -1,0 +1,39 @@
+# Maintainer: "Amhairghin" Oscar Garcia Amor (https://ogarcia.me)
+
+_commit=767fe76d3ee074246ae87bab562e9b03f395446a
+pkgname=conduit
+pkgver=2021.05.13
+pkgrel=1
+pkgdesc='A simple, fast and reliable chat server powered by Matrix'
+arch=('arm' 'armv6h' 'armv7h' 'aarch64' 'i686' 'x86_64')
+url='https://conduit.rs'
+license=('Apache')
+depends=('sqlite')
+makedepends=('rustup')
+backup=("etc/${pkgname}.conf")
+source=("${pkgname}-${pkgver}.tar.bz2::https://gitlab.com/famedly/${pkgname}/-/archive/${_commit}/${pkgname}-${_commit}.tar.bz2"
+        "${pkgname}.conf"
+        "${pkgname}.service")
+sha256sums=('6bd7c15a885eba660a46afdd058c527c14a22943d4dea9adf12882f865d57130'
+            '0b1ce7932889bb99c0cc9d205920f3e3bd8cb81483bd18776e28d018a7d78b8a'
+            '420d09a21517179fa655b0729d3ae212c92410b1a9951a1a13f2098240c6376e')
+
+prepare() {
+  cd "${pkgname}-${_commit}"
+  rustup override set nightly
+}
+
+build() {
+  cd "${pkgname}-${_commit}"
+  cargo build --release --locked --all-features --target-dir=target
+}
+
+package() {
+  # binary
+  install -Dm755 "${srcdir}/${pkgname}-${_commit}/target/release/${pkgname}" \
+    "${pkgdir}/usr/bin/${pkgname}"
+  # conf
+  install -Dm644 "${srcdir}/${pkgname}.conf" "${pkgdir}/etc/${pkgname}.conf"
+  # service
+  install -Dm644 "${srcdir}/${pkgname}.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}.service"
+}
