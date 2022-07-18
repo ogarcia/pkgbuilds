@@ -1,31 +1,31 @@
 # Maintainer: "Amhairghin" Oscar Garcia Amor (https://ogarcia.me)
 
-_commit=767fe76d3ee074246ae87bab562e9b03f395446a
+_commit=df16012661b0ec958be41f5a52b4f9bb931dc3ff
 pkgname=conduit
-pkgver=2021.05.13
+pkgver=2022.06.23
 pkgrel=1
 pkgdesc='A simple, fast and reliable chat server powered by Matrix'
 arch=('arm' 'armv6h' 'armv7h' 'aarch64' 'i686' 'x86_64')
 url='https://conduit.rs'
 license=('Apache')
 depends=('gcc-libs')
-makedepends=('rustup')
+makedepends=('clang' 'rust')
 backup=("etc/${pkgname}.conf")
 source=("${pkgname}-${pkgver}.tar.bz2::https://gitlab.com/famedly/${pkgname}/-/archive/${_commit}/${pkgname}-${_commit}.tar.bz2"
         "${pkgname}.conf"
         "${pkgname}.service")
-sha256sums=('6bd7c15a885eba660a46afdd058c527c14a22943d4dea9adf12882f865d57130'
-            '999461045c166e956d7e8bbbad5bebbab66ce330c55569df12124899c522566e'
-            '420d09a21517179fa655b0729d3ae212c92410b1a9951a1a13f2098240c6376e')
+b2sums=('d66ff2dc5bb213ac6d7d4974d665f8d3b7075ca75b28f87891e05b4ea51179fa22df98b1b0d5bed84001ccad656800ef2c5d633ea4a6c6d2e11115ff241b2743'
+        '2e8951aae51ee8f63d6029796d74850aee3ffa38591918e113b0789a3367b2e73088f4e357b9646ff9f333dbad642062200e69aaa5cb4588bdcecd3c6347d9d3'
+        'df06e89b1b660bc0dfd99303f237593fe28a87ed4f92db207b96217f14f3913f556602104f0b5c82c9199c356c46990e830b6ddc8266e3c6bce00daeef538d0b')
 
-prepare() {
-  cd "${pkgname}-${_commit}"
-  rustup override set nightly
-}
+#prepare() {
+#  cd "${pkgname}-${_commit}"
+#  rustup override set nightly
+#}
 
 build() {
   cd "${pkgname}-${_commit}"
-  cargo build --release --locked --all-features --target-dir=target
+  cargo build --release --locked --target-dir=target
 }
 
 package() {
