@@ -1,0 +1,69 @@
+# Maintainer: "Amhairghin" Oscar Garcia Amor (https://ogarcia.me)
+
+_pkgname=mldonkey
+pkgname=mldonkey-ed2kad-daemon-git
+pkgver=3.1.7.2.r15.ge136e74
+pkgrel=1
+pkgdesc="A multi-network P2P client. Daemon function, only ED2K/KAD."
+arch=('aarch64' 'x86_64')
+license=('GPL')
+depends=('bzip2' 'file' 'libnatpmp' 'miniupnpc')
+makedepends=('camlp4' 'git' 'ocaml-num')
+conflicts=('mldonkey')
+provides=('mldonkey')
+backup=('etc/conf.d/mldonkey')
+source=('git+https://github.com/ygrek/mldonkey.git'
+        'https://raw.githubusercontent.com/gentoo/gentoo/master/net-p2p/mldonkey/files/cpp17-byte-namespace.patch'
+        'https://raw.githubusercontent.com/FabioLolix/AUR-artifacts/master/mldonkey-fix-build.patch'
+        'mldonkey.conf'
+        'mldonkey.service'
+        'mldonkey.tmpfiles'
+        'mldonkey.sysusers')
+b2sums=('SKIP'
+        '8d69353ae9a5d3297f304d2b130ed06f5f2f8aef5ae1116a69e36019c70e3c991354b0d8ad27951910b67b8a87641b563c7065c4e50f11452c0f9be79971cbae'
+        '5d2d9b3a139128ce802009af17489cae415d816e7025b98b1d29db41d09909456787d985debec08766485e8c64347e958c1b472e8059c145764b436894cc34bd'
+        'cbf78f23d864589b24e385f19ac2c40423c0e7367e5fa3fd9d9f29aae9e712cd8b6c2ddbd540604603a0f7faaf56c4146719b3bbdfa8615a0ce03a96d6be1b85'
+        '3d3cf7573dddbdfe35b1d8c1b12b678e374791ca14577d579f2da86ff54cfeb1f317f9bbc022199b4d5fadb46f83a720e786eb3df90c0213854eb083135ed9b0'
+        '10862789508cc6fd277a2d0e7fd53bba16a110659a9cd7df201a340fe6656f027474a5a474e39dd08266d98f21635101c3432fe9cd81e3851d248db701fee178'
+        '75edfcc2f3b420449ef4c2062519bdac58156a1593ff31f3ce75c645fbc5de813fdfde799a5ed85b9796f3866d3459f22f7259526aa3b736210043587967022e')
+
+pkgver() {
+  cd "${_pkgname}"
+  git describe --long --tags --abbrev=7 | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/release.//g'
+}
+
+prepare() {
+  cd "${_pkgname}"
+  patch -Np1 -i ../cpp17-byte-namespace.patch
+  patch -Np1 -i ../mldonkey-fix-build.patch
+}
+
+build() {
+  cd "${_pkgname}"
+  ./configure \
+    --prefix=/usr \
+    --enable-minimum \
+    --enable-upnp-natpmp \
+    --enable-bzip2 \
+    --enable-magic \
+    --enable-donkeysui \
+    --enable-checks \
+    --enable-pthread \
+    --disable-rpath
+
+  make depend
+  make
+  make utils
+}
+
+package() {
+  cd "${_pkgname}"
+  make DESTDIR="${pkgdir}" install
+
+  install -Dm755 mld_hash "${pkgdir}/usr/bin/ed2k_hash"
+
+  install -Dm644 "${srcdir}"/mldonkey.conf "${pkgdir}"/etc/conf.d/mldonkey
+  install -Dm644 "${srcdir}"/mldonkey.service "${pkgdir}"/usr/lib/systemd/system/mldonkey.service
+  install -Dm644 "${srcdir}"/mldonkey.tmpfiles "${pkgdir}"/usr/lib/tmpfiles.d/mldonkey.conf
+  install -Dm644 "${srcdir}"/mldonkey.sysusers "${pkgdir}"/usr/lib/sysusers.d/mldonkey.conf
+}

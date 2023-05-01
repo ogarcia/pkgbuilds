@@ -1,0 +1,8 @@
+*
+!.gitignore
+!mldonkey.conf
+!mldonkey.service
+!mldonkey.sysusers
+!mldonkey.tmpfiles
+!PKGBUILD
+!.SRCINFO
