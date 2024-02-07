@@ -1,0 +1,22 @@
+pkgbase = kubenav-bin
+	pkgdesc = Navigator for your Kubernetes clusters
+	pkgver = 4.2.3
+	pkgrel = 1
+	url = https://kubenav.io
+	arch = x86_64
+	license = MIT
+	depends = gtk3
+	provides = kubenav
+	conflicts = kubenav
+	options = !strip
+	options = !emptydirs
+	source = kubenav-4.2.3.x86_64.AppImage::https://github.com/kubenav/kubenav/releases/download/v4.2.3/kubenav-x86_64.AppImage
+	source = https://github.com/kubenav/kubenav/raw/main/LICENSE
+	source = kubenav.desktop
+	source = kubenav.svg
+	b2sums = 1b07176e59a39edbd657f323d03bac2903b0820c73ed1c2c9baa16a7f2d766b342f5bec0c42df4c9e21a6bf0034c8b5c82d85633d028b602640877f13e5a3734
+	b2sums = 1a4a15a143799905b98f7c6bf8125e4b95f1662841d9e17ca967761a272d33f070467a6ffeba75c4a0626a1fc69b6e956227a8d46f5c883e29aebdc24ffe9439
+	b2sums = 899871f9689b40a93a7a80c7210515efb24d2cb43c721d1ba6a04fb68e0fcc1569fb08db2a1c3cf7eac60c03ba28dfe91576820a7aae8f65c80e1995f77cce4d
+	b2sums = deda23bcc0fa9ec86ed5b1c1adbeacc64928abf24f3e3103d244f063169db240eae84650641932253867ab71bc5110ccdfca44ddb8d16155b4bda3511ca4becb
+
+pkgname = kubenav-bin

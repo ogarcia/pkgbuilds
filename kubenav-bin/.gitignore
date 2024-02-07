@@ -1,0 +1,6 @@
+*
+!.gitignore
+!kubenav.desktop
+!kubenav.svg
+!PKGBUILD
+!.SRCINFO
