@@ -1,0 +1,9 @@
+# Maintainer: "Amhairghin" Oscar Garcia Amor (https://ogarcia.me)
+
+pkgname=devtools-depends-dummy
+pkgver=1
+pkgrel=1
+pkgdesc='Dummy package to avoid install mercurial and subversion'
+arch=('any')
+provides=('mercurial'
+          'subversion')

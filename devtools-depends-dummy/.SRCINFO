@@ -1,0 +1,9 @@
+pkgbase = devtools-depends-dummy
+	pkgdesc = Dummy package to avoid install mercurial and subversion
+	pkgver = 1
+	pkgrel = 1
+	arch = any
+	provides = mercurial
+	provides = subversion
+
+pkgname = devtools-depends-dummy
