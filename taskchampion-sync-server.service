@@ -4,11 +4,11 @@ After=network.target
 Documentation=http://taskwarrior.org/docs/
 
 [Service]
+Type=simple
+DynamicUser=yes
+StateDirectory=taskchampion-sync-server
 ExecStart=/usr/bin/taskchampion-sync-server --port 53589 --data-dir /var/lib/taskchampion-sync-server
 Restart=on-abort
-Type=simple
-User=taskchampion
-Group=taskchampion
 
 [Install]
 WantedBy=multi-user.target

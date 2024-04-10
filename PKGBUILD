@@ -8,46 +8,41 @@ pkgdesc="The server Taskwarrior syncs to"
 arch=('x86_64')
 url="https://taskwarrior.org/"
 license=('MIT')
-depends=('util-linux' 'gnutls')
-makedepends=('cmake' 'git' 'cargo')
+depends=('gcc-libs')
+makedepends=('git' 'rust')
 optdepends=()
-_commit=3e41fb604c209e355444a1f0e2f4e15c70d76226
+_commit=31cb732f0697208ef9a8d325a79688612087185a
 source=(
-    "$pkgname::git+https://github.com/GothenburgBitFactory/taskwarrior.git#commit=$_commit"
-    "$pkgname.service"
-    "$pkgname.sysusers"
+    "${pkgname}-${pkgver}::git+https://github.com/GothenburgBitFactory/taskchampion-sync-server.git#commit=$_commit"
+    "${pkgname}.service"
 )
-sha256sums=(
-    '4f8304c149f28152fa1f291d6be1b263ed23619f53637715ae21e023f9c0f184'
-    '3ea87bb86ec6aa395eba25f859350545c9c67fa9779e485fd9083b7317339458'
-    '6ff937968e0c319bd436bdfe765eba132ceac78cb80640a8fd7b909cd44db89a'
-)
+b2sums=('38552477b3c8197897f6c0914538e4be8dae4b10984ee399251fb06fbe0c33446e2a4d3745e6d8a547c7a941e15c823eff8a2733615aacdaf62c3f2144fe2615'
+        'e40adbaa31f8e1a64e17f15f1200e43b7b662e98d37fc0be84efcbe8276e712cd98a3c1053eb47749732b6d983f704cd4a17a9f6c8ff8f19408c7b9bee9b5086')
 options=('!lto')
-install="$pkgname.install"
 
 prepare() {
-    cd "$srcdir/$pkgname/taskchampion/sync-server"
+    cd "${pkgname}-${pkgver}"
     export RUSTUP_TOOLCHAIN=stable
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
-    cd "$srcdir/$pkgname/taskchampion/sync-server"
+    cd "${pkgname}-${pkgver}"
     export RUSTUP_TOOLCHAIN=stable
     export CARGO_TARGET_DIR=target
     cargo build --frozen --release
 }
 
 check() {
-    cd "$srcdir/$pkgname/taskchampion/sync-server"
+    cd "${pkgname}-${pkgver}"
     export RUSTUP_TOOLCHAIN=stable
     export CARGO_TARGET_DIR=target
     cargo test --frozen
 }
 
 package() {
-    install -Dm644 "$srcdir/$pkgname.service" "$pkgdir/usr/lib/systemd/system/$pkgname.service"
-    install -Dm644 "$srcdir/$pkgname.sysusers" "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
-    install -Dt "$pkgdir/usr/bin" "$srcdir/$pkgname/taskchampion/sync-server/target/release/$pkgname"
+    install -Dm644 -t "${pkgdir}/usr/lib/systemd/system" "${pkgname}.service"
+    install -Dm755 -t "${pkgdir}/usr/bin" "${pkgname}-${pkgver}/target/release/${pkgname}"
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" "${pkgname}-${pkgver}/LICENSE"
 }
 
