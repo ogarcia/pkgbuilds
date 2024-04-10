@@ -1,4 +1,5 @@
 # Maintainer: Ivy Huang <imyxh@imyxh.net>
+# Maintainer: Óscar García Amor <ogarcia@moire.org>
 # vim: set tw=0 sw=4 et :
 
 pkgname=taskchampion-sync-server
