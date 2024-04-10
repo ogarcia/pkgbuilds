@@ -3,20 +3,15 @@ pkgbase = taskchampion-sync-server
 	pkgver = 3.0.0
 	pkgrel = 1
 	url = https://taskwarrior.org/
-	install = taskchampion-sync-server.install
 	arch = x86_64
 	license = MIT
-	makedepends = cmake
 	makedepends = git
-	makedepends = cargo
-	depends = util-linux
-	depends = gnutls
+	makedepends = rust
+	depends = gcc-libs
 	options = !lto
-	source = taskchampion-sync-server::git+https://github.com/GothenburgBitFactory/taskwarrior.git#commit=3e41fb604c209e355444a1f0e2f4e15c70d76226
+	source = taskchampion-sync-server-3.0.0::git+https://github.com/GothenburgBitFactory/taskchampion-sync-server.git#commit=31cb732f0697208ef9a8d325a79688612087185a
 	source = taskchampion-sync-server.service
-	source = taskchampion-sync-server.sysusers
-	sha256sums = 4f8304c149f28152fa1f291d6be1b263ed23619f53637715ae21e023f9c0f184
-	sha256sums = 3ea87bb86ec6aa395eba25f859350545c9c67fa9779e485fd9083b7317339458
-	sha256sums = 6ff937968e0c319bd436bdfe765eba132ceac78cb80640a8fd7b909cd44db89a
+	b2sums = 38552477b3c8197897f6c0914538e4be8dae4b10984ee399251fb06fbe0c33446e2a4d3745e6d8a547c7a941e15c823eff8a2733615aacdaf62c3f2144fe2615
+	b2sums = e40adbaa31f8e1a64e17f15f1200e43b7b662e98d37fc0be84efcbe8276e712cd98a3c1053eb47749732b6d983f704cd4a17a9f6c8ff8f19408c7b9bee9b5086
 
 pkgname = taskchampion-sync-server
