@@ -16,34 +16,49 @@ pkgbase = tela-circle-icon-theme
 
 pkgname = tela-circle-icon-theme-all
 	pkgdesc = A flat colorful design icon theme (all variants)
-	conflicts = tela-circle-icon-theme-all-git
+	conflicts = tela-circle-icon-theme
 
 pkgname = tela-circle-icon-theme-standard
+	pkgdesc = A flat colorful design icon theme (standard variant)
 
 pkgname = tela-circle-icon-theme-black
+	pkgdesc = A flat colorful design icon theme (black variant)
 
 pkgname = tela-circle-icon-theme-blue
+	pkgdesc = A flat colorful design icon theme (blue variant)
 
 pkgname = tela-circle-icon-theme-brown
+	pkgdesc = A flat colorful design icon theme (brown variant)
 
 pkgname = tela-circle-icon-theme-green
+	pkgdesc = A flat colorful design icon theme (green variant)
 
 pkgname = tela-circle-icon-theme-grey
+	pkgdesc = A flat colorful design icon theme (grey variant)
 
 pkgname = tela-circle-icon-theme-orange
+	pkgdesc = A flat colorful design icon theme (orange variant)
 
 pkgname = tela-circle-icon-theme-pink
+	pkgdesc = A flat colorful design icon theme (pink variant)
 
 pkgname = tela-circle-icon-theme-purple
+	pkgdesc = A flat colorful design icon theme (purple variant)
 
 pkgname = tela-circle-icon-theme-red
+	pkgdesc = A flat colorful design icon theme (red variant)
 
 pkgname = tela-circle-icon-theme-yellow
+	pkgdesc = A flat colorful design icon theme (yellow variant)
 
 pkgname = tela-circle-icon-theme-manjaro
+	pkgdesc = A flat colorful design icon theme (manjaro variant)
 
 pkgname = tela-circle-icon-theme-ubuntu
+	pkgdesc = A flat colorful design icon theme (ubuntu variant)
 
 pkgname = tela-circle-icon-theme-dracula
+	pkgdesc = A flat colorful design icon theme (dracula variant)
 
 pkgname = tela-circle-icon-theme-nord
+	pkgdesc = A flat colorful design icon theme (nord variant)
