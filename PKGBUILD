@@ -1,4 +1,5 @@
 # Maintainer: "Amhairghin" Oscar Garcia Amor (https://ogarcia.me)
+# Maintainer: Tiago "Marmita" de Paula <tiagodepalves@gmail.com>
 
 _themes=(standard black blue brown green grey orange pink purple red yellow manjaro ubuntu dracula nord)
 
@@ -6,7 +7,7 @@ pkgbase=tela-circle-icon-theme
 pkgname=(${pkgbase}-all ${_themes[@]/#/${pkgbase}-})
 pkgdesc='A flat colorful design icon theme'
 pkgver=2024.04.19
-pkgrel=1
+pkgrel=2
 url="https://github.com/vinceliuice/${pkgbase^}"
 arch=('any')
 license=('GPL3')
