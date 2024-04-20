@@ -10,6 +10,7 @@ pkgbase = tela-circle-icon-theme
 	depends = hicolor-icon-theme
 	provides = tela-circle-icon-theme
 	options = !strip
+	options = !debug
 	source = tela-circle-icon-theme-2024.04.19.tar.gz::https://github.com/vinceliuice/Tela-circle-icon-theme/archive/2024-04-19.tar.gz
 	b2sums = 5bfafee284d0efaee5088adbdb5f6f4e93345ae031679f9b71e0b996472700225b26407246ddf8c74f9e92e74b311691233baf4fd33c5e005dc88f017c52b46c
 

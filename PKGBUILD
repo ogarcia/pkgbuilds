@@ -13,7 +13,7 @@ license=('GPL3')
 makedepends=('bash')
 depends=('gtk-update-icon-cache' 'hicolor-icon-theme')
 provides=("${pkgbase}")
-options=(!strip)
+options=(!strip !debug)
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver//./-}.tar.gz")
 b2sums=('5bfafee284d0efaee5088adbdb5f6f4e93345ae031679f9b71e0b996472700225b26407246ddf8c74f9e92e74b311691233baf4fd33c5e005dc88f017c52b46c')
 
