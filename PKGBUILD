@@ -13,7 +13,7 @@ arch=('any')
 license=('GPL3')
 makedepends=('bash' 'git')
 depends=('gtk-update-icon-cache' 'hicolor-icon-theme')
-provides=("${_pkgbase}" "${_pkgbase}-git")
+provides=("${_pkgbase}")
 options=(!strip !debug)
 source=("${_pkgbase}::git+${url}.git")
 b2sums=('SKIP')
@@ -23,26 +23,24 @@ pkgver() {
   git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
-package_tela-circle-icon-theme-all-git() {
-  pkgdesc="${pkgdesc} (all variants)"
-  conflicts=(${pkgname[@]/${pkgbase%-git}-all-git} "${pkgname[@]/%-git/}")
-
+_package() {
   cd "${_pkgbase}"
   install -dm755 "${pkgdir}/usr/share/icons"
-  ./install.sh -a -d "${pkgdir}/usr/share/icons"
+  ./install.sh -d "${pkgdir}/usr/share/icons" ${1}
 }
 
-_package() {
-  pkgdesc="${pkgdesc} (${1} variant)"
-  conflicts=("${_pkgbase}-all-git" "${_pkgbase}-all" "${_pkgbase}-${1}")
+package_tela-circle-icon-theme-all-git() {
+  pkgdesc="${pkgdesc} (all variants)"
+  conflicts=("${_pkgbase}" "${_pkgbase}"-all)
 
-  cd "${_pkgbase}"
-  install -dm755 "${pkgdir}/usr/share/icons"
-  ./install.sh -d "${pkgdir}/usr/share/icons" "${1}"
+  _package -a
 }
 
 for _theme in "${_themes[@]}"; do
   eval "package_${_pkgbase}-${_theme}-git() {
-    _package ${_theme}
+    pkgdesc='${pkgdesc} (${_theme} variant)'
+    conflicts=(${_pkgbase}-${_theme})
+
+    _package '${_theme}'
   }"
 done
