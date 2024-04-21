@@ -17,7 +17,21 @@ pkgbase = tela-circle-icon-theme-spl-git
 
 pkgname = tela-circle-icon-theme-all-git
 	pkgdesc = A flat colorful design icon theme (all variants)
-	conflicts = tela-circle-icon-theme
+	depends = tela-circle-icon-theme-standard-git
+	depends = tela-circle-icon-theme-black-git
+	depends = tela-circle-icon-theme-blue-git
+	depends = tela-circle-icon-theme-brown-git
+	depends = tela-circle-icon-theme-green-git
+	depends = tela-circle-icon-theme-grey-git
+	depends = tela-circle-icon-theme-orange-git
+	depends = tela-circle-icon-theme-pink-git
+	depends = tela-circle-icon-theme-purple-git
+	depends = tela-circle-icon-theme-red-git
+	depends = tela-circle-icon-theme-yellow-git
+	depends = tela-circle-icon-theme-manjaro-git
+	depends = tela-circle-icon-theme-ubuntu-git
+	depends = tela-circle-icon-theme-dracula-git
+	depends = tela-circle-icon-theme-nord-git
 	conflicts = tela-circle-icon-theme-all
 
 pkgname = tela-circle-icon-theme-standard-git
