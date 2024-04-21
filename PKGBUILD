@@ -14,7 +14,7 @@ license=('GPL3')
 makedepends=('bash' 'git')
 depends=('gtk-update-icon-cache' 'hicolor-icon-theme')
 provides=("${_pkgbase}" "${_pkgbase}-git")
-options=(!strip)
+options=(!strip !debug)
 source=("${_pkgbase}::git+${url}.git")
 b2sums=('SKIP')
 
