@@ -1,20 +1,20 @@
-# Maintainer: Igor Dyatlov <dyatlov.igor@protonmail.com>
+# Maintainer: Radu C. Martin <radu dot c dot martin at gmail dot com>
 
 pkgname=textpieces
-pkgver=3.4.1
-pkgrel=2
+pkgver=4.0.3_1
+pkgrel=1
 pkgdesc="Transform text without using random websites"
 arch=('x86_64' 'aarch64')
-url="https://github.com/liferooter/textpieces"
+url="https://gitlab.com/liferooter/textpieces"
 license=('GPL3')
 depends=('libadwaita' 'libportal-gtk4' 'gtksourceview5' 'json-glib' 'libgee' 'python-pyaml')
 makedepends=('blueprint-compiler' 'meson' 'vala')
 checkdepends=('appstream-glib')
-source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-b2sums=('8bba17f548325e274f3d346c759b7350c359f80ec589147fa127656dc262df3e1b8a177f68980d1e117b80bd38ed3ac27b0cb669ae580b78c33a1c184b0ccb8c')
+source=($url/-/archive/v${pkgver/_/-}/$pkgname-v${pkgver/_/-}.tar.gz)
+b2sums=('9af945cb50bf344db698b95dcfd2af62f745627f831d50bd1572e256a785b26d55e5a6145e88f8f9df79dd852c18237eddb5dd9f9d7df7668dcb134e42d5070a')
 
 build() {
-  arch-meson $pkgname-$pkgver build
+  arch-meson $pkgname-v${pkgver/_/-} build
   meson compile -C build
 }
 
