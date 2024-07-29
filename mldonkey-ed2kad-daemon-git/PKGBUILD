@@ -1,5 +1,6 @@
 # Maintainer: "Amhairghin" Oscar Garcia Amor (https://ogarcia.me)
 
+_latest_ok_commit=591a3a25ea2512238fe8d4a05de640052891eea9
 _pkgname=mldonkey
 pkgname=mldonkey-ed2kad-daemon-git
 pkgver=3.1.7.2.r16.g591a3a2
@@ -7,25 +8,19 @@ pkgrel=1
 pkgdesc="A multi-network P2P client. Daemon function, only ED2K/KAD."
 arch=('aarch64' 'x86_64')
 license=('GPL-2.0-or-later')
-## Begin #101 ##
-## To build with upnp-natpmp needs the follwing depends and the option
-## --enable-upnp-natpmp in configure. Now this is disabled because bug #101
-## https://github.com/ygrek/mldonkey/issues/101
-## depends=('bzip2' 'file' 'libnatpmp' 'miniupnpc')
-## End #101 ##
-depends=('bzip2' 'file')
+depends=('bzip2' 'file' 'libnatpmp' 'miniupnpc')
 makedepends=('git' 'ocaml4-camlp4' 'ocaml4-num')
 conflicts=('mldonkey')
 provides=('mldonkey')
 backup=('etc/conf.d/mldonkey')
-source=('git+https://github.com/ygrek/mldonkey.git'
+source=("git+https://github.com/ygrek/mldonkey.git#commit=${_latest_ok_commit}"
         'https://raw.githubusercontent.com/gentoo/gentoo/master/net-p2p/mldonkey/files/cpp17-byte-namespace.patch'
         'https://patch-diff.githubusercontent.com/raw/ygrek/mldonkey/pull/92.patch'
         'mldonkey.conf'
         'mldonkey.service'
         'mldonkey.tmpfiles'
         'mldonkey.sysusers')
-b2sums=('SKIP'
+b2sums=("SKIP"
         '8d69353ae9a5d3297f304d2b130ed06f5f2f8aef5ae1116a69e36019c70e3c991354b0d8ad27951910b67b8a87641b563c7065c4e50f11452c0f9be79971cbae'
         '2f5fb2a833a2a736e4dc38ef7454a8aebd3f42e2de267a998fcee7377fe20121faf2e81834ac402dffcd08d8cd78012984f1fcefd2683a93787ee45ff9ab5b95'
         'cbf78f23d864589b24e385f19ac2c40423c0e7367e5fa3fd9d9f29aae9e712cd8b6c2ddbd540604603a0f7faaf56c4146719b3bbdfa8615a0ce03a96d6be1b85'
@@ -42,6 +37,9 @@ prepare() {
   cd "${_pkgname}"
   patch -Np1 -i ../cpp17-byte-namespace.patch
   patch -Np1 -i ../92.patch
+  ## BEGIN FIX #101 ##
+  sed -i 's/sizeof( map->lanaddr )/sizeof( map->lanaddr ), NULL , 0/g' src/utils/net/upnp_stubs.c
+  ## END FIX #101 ##
 }
 
 build() {
@@ -49,7 +47,7 @@ build() {
   ./configure \
     --prefix=/usr \
     --enable-minimum \
-    ##--enable-upnp-natpmp \##
+    --enable-upnp-natpmp \
     --enable-bzip2 \
     --enable-magic \
     --enable-donkeysui \

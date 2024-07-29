@@ -10,10 +10,12 @@ pkgbase = mldonkey-ed2kad-daemon-git
 	makedepends = ocaml4-num
 	depends = bzip2
 	depends = file
+	depends = libnatpmp
+	depends = miniupnpc
 	provides = mldonkey
 	conflicts = mldonkey
 	backup = etc/conf.d/mldonkey
-	source = git+https://github.com/ygrek/mldonkey.git
+	source = git+https://github.com/ygrek/mldonkey.git#commit=591a3a25ea2512238fe8d4a05de640052891eea9
 	source = https://raw.githubusercontent.com/gentoo/gentoo/master/net-p2p/mldonkey/files/cpp17-byte-namespace.patch
 	source = https://patch-diff.githubusercontent.com/raw/ygrek/mldonkey/pull/92.patch
 	source = mldonkey.conf
