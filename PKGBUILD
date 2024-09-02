@@ -4,13 +4,13 @@
 pkgname=polaris
 pkgver=0.14.2
 _webver=build-66
-pkgrel=1
+pkgrel=2
 pkgdesc='Music streaming application, designed to let you enjoy your music collection from any computer or mobile device'
 arch=('x86_64')
 url='https://github.com/agersant/polaris'
 license=('MIT')
 depends=('openssl' 'sqlite')
-makedepends=('cargo' 'npm' 'sqlite' 'zstd' 'openssl')
+makedepends=('cargo-nightly' 'npm' 'sqlite' 'zstd' 'openssl')
 backup=('etc/polaris/config.toml')
 # disable lto as ring is having isssues with it: https://github.com/briansmith/ring/issues/1444
 options=('!lto')
@@ -35,6 +35,7 @@ install='polaris.install'
 prepare() {
     cd $pkgname-$pkgver
 	# rust 1.80+ introduced a bug which prevents time-rs from building
+	# interestingly it also fails to compile with "cargo" as dependency but "cargo-nightly" works but hangs on the tests
 	# remove once this issue is resolved
 	export RUSTUP_TOOLCHAIN=1.79.0
     #cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')"
@@ -57,6 +58,7 @@ build() {
 
 check() {
     cd $pkgname-$pkgver
+    # tests hang in an arch chroot
     cargo test --release --locked || true
 }
 

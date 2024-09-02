@@ -1,12 +1,12 @@
 pkgbase = polaris
 	pkgdesc = Music streaming application, designed to let you enjoy your music collection from any computer or mobile device
 	pkgver = 0.14.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/agersant/polaris
 	install = polaris.install
 	arch = x86_64
 	license = MIT
-	makedepends = cargo
+	makedepends = cargo-nightly
 	makedepends = npm
 	makedepends = sqlite
 	makedepends = zstd
