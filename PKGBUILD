@@ -1,7 +1,8 @@
-# Maintainer: Vyacheslav Konovalov <🦀vk@protonmail.com>
+# Maintainer: Vital Reichmuth (furbyhaxx) <furbyhaxx@gmail.com>
+# Contributor: Vyacheslav Konovalov <🦀vk@protonmail.com>
 
 pkgname=polaris
-pkgver=0.14.0
+pkgver=0.14.2
 _webver=build-66
 pkgrel=1
 pkgdesc='Music streaming application, designed to let you enjoy your music collection from any computer or mobile device'
@@ -9,8 +10,10 @@ arch=('x86_64')
 url='https://github.com/agersant/polaris'
 license=('MIT')
 depends=('openssl' 'sqlite')
-makedepends=('cargo' 'npm')
+makedepends=('cargo' 'npm' 'sqlite' 'zstd' 'openssl')
 backup=('etc/polaris/config.toml')
+# disable lto as ring is having isssues with it: https://github.com/briansmith/ring/issues/1444
+options=('!lto')
 source=(
     "polaris-$pkgver.tar.gz::https://github.com/agersant/polaris/archive/$pkgver.tar.gz"
     "polaris-web-$_webver.tar.gz::https://github.com/agersant/polaris-web/archive/$_webver.tar.gz"
@@ -20,7 +23,7 @@ source=(
     'polaris.service'
 )
 sha512sums=(
-    '9ed7ff1d0c11ba67c599392a7798f6d480a2f239502347854d6cdf0e30ed67b0ceb529e68d61493fb1f2fb5cd30dc7a325218e619d3591dff1fa7eca04dca42b'
+    'df455ddcf6bbb13414394f6de2668ad6baa5a780d387851ab6e5675b3ed35e9af64d2db80b7c6b92cf102064a1d531e3c8c00b16269988d5f88e2a99c9019a2d'
     '1965d8d1510bb3ceaec919631f2fce79a198ae19ecd2e26c93276ba175b1df480f99e1ef9815b3140a27071825805fe62738562f7ddba8161084f7b3ddf1e75a'
     '2e4fe41b394508cb6a767a5b5732745d48d08c32967f66696934346e78f42de529ae47b3102d269198781c04f76cdf8c15555f5090f6b08bce09b2a0c13779ff'
     'ca327748ca9c297a8facede92b6e8e8aa0c040228b1d84c5754b5f10a8e8a60a8a13b4e4db501b1bdd3c24ff13bec6ec0eec7dc3f2881ba6de72bf095e936644'
@@ -29,9 +32,19 @@ sha512sums=(
 )
 install='polaris.install'
 
+prepare() {
+    cd $pkgname-$pkgver
+	# rust 1.80+ introduced a bug which prevents time-rs from building
+	# remove once this issue is resolved
+	export RUSTUP_TOOLCHAIN=1.79.0
+    #cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
 build() {
     # Build the server
     cd $pkgname-$pkgver
+    #echo "Applying Dependencies Patch"
+    #git apply ../locked_build.patch
     cp res/unix/Makefile .
     make PREFIX=/usr LOCALSTATEDIR=/var RUNSTATEDIR=/run build
 
