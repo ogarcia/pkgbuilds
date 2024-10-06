@@ -1,6 +1,6 @@
 pkgbase = mldonkey-ed2kad-daemon-git
 	pkgdesc = A multi-network P2P client. Daemon function, only ED2K/KAD.
-	pkgver = 3.1.7.2.r45.g4a58eff
+	pkgver = 3.2.1.r10.gcb0da53
 	pkgrel = 1
 	arch = aarch64
 	arch = x86_64
@@ -15,7 +15,7 @@ pkgbase = mldonkey-ed2kad-daemon-git
 	provides = mldonkey
 	conflicts = mldonkey
 	backup = etc/conf.d/mldonkey
-	source = git+https://github.com/ygrek/mldonkey.git#commit=4a58eff5e8ce6c5587e34c6cfafd99d73c653074
+	source = git+https://github.com/ygrek/mldonkey.git#commit=cb0da53faefcbdd81334b24a3c2290051b027712
 	source = mldonkey.service
 	source = mldonkey.tmpfiles
 	source = mldonkey.sysusers

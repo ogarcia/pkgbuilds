@@ -1,9 +1,9 @@
 # Maintainer: "Amhairghin" Oscar Garcia Amor (https://ogarcia.me)
 
-_latest_ok_commit=4a58eff5e8ce6c5587e34c6cfafd99d73c653074
+_latest_ok_commit=cb0da53faefcbdd81334b24a3c2290051b027712
 _pkgname=mldonkey
 pkgname=mldonkey-ed2kad-daemon-git
-pkgver=3.1.7.2.r45.g4a58eff
+pkgver=3.2.1.r10.gcb0da53
 pkgrel=1
 pkgdesc="A multi-network P2P client. Daemon function, only ED2K/KAD."
 arch=('aarch64' 'x86_64')
@@ -37,7 +37,6 @@ build() {
     --enable-magic \
     --enable-donkeysui \
     --enable-checks \
-    --enable-pthread \
     --disable-rpath
 
   make depend
