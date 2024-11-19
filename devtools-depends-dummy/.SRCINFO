@@ -1,8 +1,9 @@
 pkgbase = devtools-depends-dummy
-	pkgdesc = Dummy package to avoid install mercurial and subversion
+	pkgdesc = Dummy package to avoid install breezy, mercurial and subversion
 	pkgver = 1
 	pkgrel = 1
 	arch = any
+	provides = breezy
 	provides = mercurial
 	provides = subversion
 

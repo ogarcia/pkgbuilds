@@ -3,7 +3,6 @@
 pkgname=devtools-depends-dummy
 pkgver=1
 pkgrel=1
-pkgdesc='Dummy package to avoid install mercurial and subversion'
+pkgdesc='Dummy package to avoid install breezy, mercurial and subversion'
 arch=('any')
-provides=('mercurial'
-          'subversion')
+provides=('breezy' 'mercurial' 'subversion')
