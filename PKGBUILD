@@ -6,13 +6,15 @@ arch=('x86_64')
 url="https://www.mongodb.com/products/compass"
 license=('custom')
 depends=('glibc' 'gtk3' 'libxss' 'nss')
-source=("https://downloads.mongodb.com/compass/mongodb-compass-1.46.1.x86_64.rpm")
-noextract=("mongodb-compass-1.46.1.x86_64.rpm")
+makedepends=('rpmextract' 'cpio')
+source=("https://downloads.mongodb.com/compass/mongodb-compass-${pkgver}.x86_64.rpm")
+noextract=("mongodb-compass-${pkgver}.x86_64.rpm")
 md5sums=('SKIP')
+install="${pkgname}.install"
 
 package() {
   cd "$srcdir"
-  rpmextract.sh mongodb-compass-1.46.1.x86_64.rpm
+  rpmextract.sh "mongodb-compass-${pkgver}.x86_64.rpm"
 
   # Move main app files into /opt
   install -d "$pkgdir/opt/mongodb-compass"
@@ -26,11 +28,11 @@ package() {
   install -Dm644 usr/share/applications/mongodb-compass.desktop \
     "$pkgdir/usr/share/applications/mongodb-compass.desktop"
 
-  # Install icon (from pixmaps)
+  # Install icon
   install -Dm644 usr/share/pixmaps/mongodb-compass.png \
     "$pkgdir/usr/share/pixmaps/mongodb-compass.png"
 
-  # Optionally fix .desktop file path (recommended)
+  # Fix Exec and Icon fields in desktop file
   sed -i 's|Exec=.*|Exec=/usr/bin/mongodb-compass|' "$pkgdir/usr/share/applications/mongodb-compass.desktop"
   sed -i 's|Icon=.*|Icon=mongodb-compass|' "$pkgdir/usr/share/applications/mongodb-compass.desktop"
 }
