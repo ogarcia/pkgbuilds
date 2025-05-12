@@ -1,4 +1,0 @@
-post_install() {
-  echo "✅ MongoDB Compass has been installed!"
-  echo "🔧 Run it using: mongodb-compass"
-}

@@ -1,40 +1,58 @@
-pkgname=mongodb-compass-bin
-pkgver=1.46.1
-pkgrel=1
-pkgdesc="The official GUI for MongoDB - prebuilt binary"
+# Maintainer: Daniel Peukert <daniel@peukert.cc>
+_pkgname='mongodb-compass'
+_edition=''
+pkgname="$_pkgname-bin"
+_pkgver='1.46.2'
+pkgver="$(printf '%s' "$_pkgver" | tr '-' '.')"
+pkgrel='1'
+pkgdesc='The official GUI for MongoDB - binary version'
 arch=('x86_64')
-url="https://www.mongodb.com/products/compass"
-license=('custom')
-depends=('glibc' 'alsa-lib' 'libsecret' 'gtk3' 'libxss' 'libxtst' 'nss')
+url='https://www.mongodb.com/products/compass'
+license=('SSPL-1.0')
+depends=(
+	# electron
+	'c-ares' 'dav1d' 'flac' 'fontconfig' 'freetype2' 'gcc-libs' 'glibc' 'gtk3'
+	'harfbuzz' 'icu' 'libdrm' 'libevent' 'libffi' 'libjpeg' 'libpng' 'libpulse'
+	'libwebp' 'libxml2' 'libxslt' 'minizip' 'nss' 'opus' 'zlib'
+	# compass
+	'krb5' 'libsecret' 'lsb-release'
+)
 optdepends=('org.freedesktop.secrets')
-makedepends=('rpmextract' 'cpio')
-source=("https://downloads.mongodb.com/compass/mongodb-compass-${pkgver}.x86_64.rpm")
-noextract=("mongodb-compass-${pkgver}.x86_64.rpm")
-md5sums=('SKIP')
-install="${pkgname}.install"
+provides=("$_pkgname=$pkgver")
+conflicts=("$_pkgname")
+backup=('etc/mongodb-compass.conf')
+_betaprefix="$([[ "$_pkgname" =~ -beta$ ]] && printf 'beta/' || printf '')"
+source=(
+	"$pkgname-$pkgver.rpm::https://downloads.mongodb.com/compass/$_betaprefix$_pkgname-$_pkgver.x86_64.rpm"
+	'mongodb-compass.conf'
+)
+b2sums=('3d3180dbb5322066aca3fc61f401b1ee7dd3c5683aa1274fac9111bc759b1e926630366692faa844c9976e85f3a23b2705373383e6e303d3820c17949518ad47'
+        '42535bfc10db335d685fad29aade1d091554a321fb4032b72db5699a450c6d701f630c45bb0d4cf9f456e77e3263a5aed49e843516cd3016d1a837ac5f1e6fec')
 
-package() {
-  cd "$srcdir"
-  rpmextract.sh "mongodb-compass-${pkgver}.x86_64.rpm"
-
-  # Move main app files into /opt
-  install -d "$pkgdir/opt/mongodb-compass"
-  cp -r usr/lib/mongodb-compass/* "$pkgdir/opt/mongodb-compass/"
-
-  # Symlink the binary to /usr/bin
-  install -d "$pkgdir/usr/bin"
-  ln -s /opt/mongodb-compass/MongoDB\ Compass "$pkgdir/usr/bin/mongodb-compass"
-
-  # Install desktop entry
-  install -Dm644 usr/share/applications/mongodb-compass.desktop \
-    "$pkgdir/usr/share/applications/mongodb-compass.desktop"
-
-  # Install icon
-  install -Dm644 usr/share/pixmaps/mongodb-compass.png \
-    "$pkgdir/usr/share/pixmaps/mongodb-compass.png"
-
-  # Fix Exec and Icon fields in desktop file
-  sed -i 's|Exec=.*|Exec=/usr/bin/mongodb-compass|' "$pkgdir/usr/share/applications/mongodb-compass.desktop"
-  sed -i 's|Icon=.*|Icon=mongodb-compass|' "$pkgdir/usr/share/applications/mongodb-compass.desktop"
+check() {
+	_checkoutput="$(ELECTRON_OZONE_PLATFORM_HINT='auto' "$srcdir/usr/lib/$_pkgname/MongoDB Compass$_edition" --no-sandbox --version)"
+	printf '%s\n' "$_checkoutput"
+	printf '%s\n' "$_checkoutput" | grep -q "^MongoDB Compass$_edition $pkgver$"
 }
 
+package() {
+	cd "$srcdir/"
+
+	install -dm755 "$pkgdir/opt/"
+	cp -r --no-preserve=ownership --preserve=mode "usr/lib/$_pkgname/" "$pkgdir/opt/$_pkgname/"
+
+	chmod u+s "$pkgdir/opt/$_pkgname/chrome-sandbox"
+
+	install -dm755 "$pkgdir/usr/bin/"
+	ln -sf "/opt/$_pkgname/MongoDB Compass$_edition" "$pkgdir/usr/bin/$_pkgname"
+
+	install -Dm644 "$srcdir/mongodb-compass.conf" "$pkgdir/etc/mongodb-compass.conf"
+
+	install -Dm644 "usr/share/applications/$_pkgname.desktop" "$pkgdir/usr/share/applications/$_pkgname.desktop"
+	install -Dm644 "usr/share/pixmaps/$_pkgname.png" "$pkgdir/usr/share/pixmaps/$_pkgname.png"
+
+	install -dm755 "$pkgdir/usr/share/licenses/$pkgname/"
+
+	ln -sf "/opt/$_pkgname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/SSPL-1.0"
+	ln -sf "/opt/$_pkgname/LICENSES.chromium.html" "$pkgdir/usr/share/licenses/$pkgname/LICENSES.chromium.html"
+}
