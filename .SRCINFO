@@ -1,7 +1,7 @@
 pkgbase = mongodb-compass-bin
 	pkgdesc = The official GUI for MongoDB - binary version
 	pkgver = 1.46.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.mongodb.com/products/compass
 	arch = x86_64
 	license = SSPL-1.0
@@ -30,10 +30,10 @@ pkgbase = mongodb-compass-bin
 	depends = zlib
 	depends = krb5
 	depends = libsecret
-	depends = lsb-release
 	optdepends = org.freedesktop.secrets
 	provides = mongodb-compass=1.46.2
 	conflicts = mongodb-compass
+	options = !debug
 	backup = etc/mongodb-compass.conf
 	source = mongodb-compass-bin-1.46.2.rpm::https://downloads.mongodb.com/compass/mongodb-compass-1.46.2.x86_64.rpm
 	source = mongodb-compass.conf
