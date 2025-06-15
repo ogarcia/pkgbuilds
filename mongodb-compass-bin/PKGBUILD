@@ -31,7 +31,8 @@ package() {
     rm -rf "${pkgdir}/usr/share/doc"
 
     # Prevent creation of unnecessary logs in `${HOME}/.mongodb`
-    sed -i 's/Exec=/Exec=env MONGODB_COMPASS_TEST_LOG_DIR=\/dev\/null /' \
+    # --gtk-version=3 --ignore-additional-command-line-flags
+    sed -i 's/Exec=mongodb-compass/Exec=env MONGODB_COMPASS_TEST_LOG_DIR=\/dev\/null mongodb-compass --gtk-version=3 --ignore-additional-command-line-flags/' \
       "${pkgdir}"/usr/share/applications/mongodb-compass.desktop
 
     # Install license
