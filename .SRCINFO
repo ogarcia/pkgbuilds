@@ -1,6 +1,6 @@
 pkgbase = mongodb-compass-bin
 	pkgdesc = The official GUI for MongoDB - binary version
-	pkgver = 1.46.3
+	pkgver = 1.46.4
 	pkgrel = 1
 	url = https://www.mongodb.com/products/compass
 	arch = x86_64
@@ -31,13 +31,13 @@ pkgbase = mongodb-compass-bin
 	depends = krb5
 	depends = libsecret
 	optdepends = org.freedesktop.secrets
-	provides = mongodb-compass=1.46.3
+	provides = mongodb-compass=1.46.4
 	conflicts = mongodb-compass
 	options = !debug
 	backup = etc/mongodb-compass.conf
-	source = mongodb-compass-bin-1.46.3.rpm::https://downloads.mongodb.com/compass/mongodb-compass-1.46.3.x86_64.rpm
+	source = mongodb-compass-bin-1.46.4.rpm::https://downloads.mongodb.com/compass/mongodb-compass-1.46.4.x86_64.rpm
 	source = mongodb-compass.conf
-	b2sums = 00d4257265ac0143ca325cef58ab36c9040cea987822d0f4f11f05b45e83d666e79dbfa013963538b2c90843290cb462790dc89b35ae9e749a401e287a1aa597
+	b2sums = 1134f7511b13c9bbd710c77c9a19bf868e94bd6b63779e596d031768122264603064c51af9d3317e8d32481c0fd9461913390083a3a6469f2b68be5dff487dde
 	b2sums = 42535bfc10db335d685fad29aade1d091554a321fb4032b72db5699a450c6d701f630c45bb0d4cf9f456e77e3263a5aed49e843516cd3016d1a837ac5f1e6fec
 
 pkgname = mongodb-compass-bin
