@@ -1,6 +1,6 @@
 pkgbase = mongodb-compass-bin
 	pkgdesc = The MongoDB GUI
-	pkgver = 1.48.1
+	pkgver = 1.48.2
 	pkgrel = 1
 	url = https://www.mongodb.com/products/compass
 	arch = x86_64
@@ -12,11 +12,11 @@ pkgbase = mongodb-compass-bin
 	depends = libxtst
 	depends = nss
 	optdepends = org.freedesktop.secrets
-	noextract = mongodb-compass_1.48.1_amd64.deb
+	noextract = mongodb-compass_1.48.2_amd64.deb
 	options = !debug
-	source = https://downloads.mongodb.com/compass/mongodb-compass_1.48.1_amd64.deb
+	source = https://downloads.mongodb.com/compass/mongodb-compass_1.48.2_amd64.deb
 	source = https://github.com/mongodb-js/compass/raw/main/LICENSE
-	b2sums = ae377cde471e378f264c0981442b3da763c2063c5b30e8c637f33f19a1424992735cd0189291853c0a0c1b6c8ab8a3d06962d0f72a82da4f4209b8c21496befa
+	b2sums = 9b34c53384d81223d046a83835669ce432395446258bd20936425895ff30e29cf52aec3663dd652d1ca7c16e293ae934338369961f20ddb3e7394f7b1821b6e9
 	b2sums = 3db19ea220a8fec79eb55aa2657a3d9c920cf9eaa4ed6737e4a4688e1ba573c36d7de1b52a165340f61c740dfda98f656596b0d8b9f3492cffa0f4e418bf7ef3
 
 pkgname = mongodb-compass-bin
