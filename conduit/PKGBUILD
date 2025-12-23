@@ -1,32 +1,32 @@
 # Maintainer: "Amhairghin" Oscar Garcia Amor (https://ogarcia.me)
 
-_commit=3bfdae795d4d9ec9aeaac7465e7535ac88e47756
 pkgname=conduit
-pkgver=2023.09.13
+pkgver=0.10.10
 pkgrel=1
 pkgdesc='A simple, fast and reliable chat server powered by Matrix'
 arch=('arm' 'armv6h' 'armv7h' 'aarch64' 'i686' 'x86_64')
 url='https://conduit.rs'
-license=('Apache')
+license=('Apache-2.0')
 depends=('gcc-libs')
 makedepends=('clang' 'rust')
+opions=('!lto')
 backup=("etc/${pkgname}.conf")
-source=("${pkgname}-${pkgver}.tar.bz2::https://gitlab.com/famedly/${pkgname}/-/archive/${_commit}/${pkgname}-${_commit}.tar.bz2"
+source=("${pkgname}::git+https://gitlab.com/famedly/${pkgname}.git#tag=v${pkgver}"
         "${pkgname}.service")
-b2sums=('1a2164d8dfe8fec712c26535691e975dad20ec8a1619d357980946512c18d0689e53e499b1a1fa4aac9798760f0fe1e6b69f2bce60368f509b227b76ff4a9be2'
+b2sums=('0a4f9aa32ad0f1c120e60c8e17c3597de7e845d50b60462da139147e962f561b6fdf6f715e9c0608d7de7dbf752c1c7bd7d82efe7493f9e0b7245437fbd0fe07'
         'df06e89b1b660bc0dfd99303f237593fe28a87ed4f92db207b96217f14f3913f556602104f0b5c82c9199c356c46990e830b6ddc8266e3c6bce00daeef538d0b')
 
 build() {
-  cd "${pkgname}-${_commit}"
-  cargo build --release --locked --target-dir=target
+  cd "${pkgname}"
+  CXXFLAGS="$CXXFLAGS -include cstdint" cargo build --release --locked --target-dir=target
 }
 
 package() {
   # binary
-  install -Dm755 "${srcdir}/${pkgname}-${_commit}/target/release/${pkgname}" \
+  install -Dm755 "${srcdir}/${pkgname}/target/release/${pkgname}" \
     "${pkgdir}/usr/bin/${pkgname}"
   # conf
-  install -Dm644 "${srcdir}/${pkgname}-${_commit}/${pkgname}-example.toml" \
+  install -Dm644 "${srcdir}/${pkgname}/${pkgname}-example.toml" \
     "${pkgdir}/etc/${pkgname}.conf"
   sed -i '1i# vim: filetype=toml' "${pkgdir}/etc/${pkgname}.conf"
   sed -i 's/\/matrix-conduit\//\/conduit\//' "${pkgdir}/etc/${pkgname}.conf"
