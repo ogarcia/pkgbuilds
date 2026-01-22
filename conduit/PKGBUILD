@@ -1,19 +1,19 @@
 # Maintainer: "Amhairghin" Oscar Garcia Amor (https://ogarcia.me)
 
 pkgname=conduit
-pkgver=0.10.10
+pkgver=0.10.11
 pkgrel=1
 pkgdesc='A simple, fast and reliable chat server powered by Matrix'
 arch=('arm' 'armv6h' 'armv7h' 'aarch64' 'i686' 'x86_64')
 url='https://conduit.rs'
 license=('Apache-2.0')
 depends=('gcc-libs')
-makedepends=('clang' 'rust')
-opions=('!lto')
+makedepends=('clang' 'git' 'rust')
+options=('!lto')
 backup=("etc/${pkgname}.conf")
 source=("${pkgname}::git+https://gitlab.com/famedly/${pkgname}.git#tag=v${pkgver}"
         "${pkgname}.service")
-b2sums=('0a4f9aa32ad0f1c120e60c8e17c3597de7e845d50b60462da139147e962f561b6fdf6f715e9c0608d7de7dbf752c1c7bd7d82efe7493f9e0b7245437fbd0fe07'
+b2sums=('3506a0d05f98ad7695830de72c4e0f0fc4e259f7cc24a39cc0f6590bda4ed63b3760248f9fe973157b7f2bbed8e1c9087b64f5ead5ac149a63549da455b6c8d0'
         'df06e89b1b660bc0dfd99303f237593fe28a87ed4f92db207b96217f14f3913f556602104f0b5c82c9199c356c46990e830b6ddc8266e3c6bce00daeef538d0b')
 
 build() {
