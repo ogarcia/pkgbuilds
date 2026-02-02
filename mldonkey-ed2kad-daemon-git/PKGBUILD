@@ -17,8 +17,8 @@ source=("git+https://github.com/ygrek/mldonkey.git#commit=${_latest_ok_commit}"
         'mldonkey.service'
         'mldonkey.tmpfiles'
         'mldonkey.sysusers')
-b2sums=("SKIP"
-        '3d3cf7573dddbdfe35b1d8c1b12b678e374791ca14577d579f2da86ff54cfeb1f317f9bbc022199b4d5fadb46f83a720e786eb3df90c0213854eb083135ed9b0'
+b2sums=('SKIP'
+        'cc7f7794f9800d4be5ee8f31823ed382d391a0e4b7919c3c39ae9e3f90e3d726b2f6e91651decfd25c4561fe00ad696358784f01d6302fff541bc9787097f841'
         '10862789508cc6fd277a2d0e7fd53bba16a110659a9cd7df201a340fe6656f027474a5a474e39dd08266d98f21635101c3432fe9cd81e3851d248db701fee178'
         '75edfcc2f3b420449ef4c2062519bdac58156a1593ff31f3ce75c645fbc5de813fdfde799a5ed85b9796f3866d3459f22f7259526aa3b736210043587967022e')
 
