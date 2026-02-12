@@ -1,7 +1,7 @@
 # Maintainer: "Amhairghin" Oscar Garcia Amor (https://ogarcia.me)
 
 pkgname=conduit
-pkgver=0.10.11
+pkgver=0.10.12
 pkgrel=1
 pkgdesc='A simple, fast and reliable chat server powered by Matrix'
 arch=('arm' 'armv6h' 'armv7h' 'aarch64' 'i686' 'x86_64')
@@ -13,7 +13,7 @@ options=('!lto')
 backup=("etc/${pkgname}.conf")
 source=("${pkgname}::git+https://gitlab.com/famedly/${pkgname}.git#tag=v${pkgver}"
         "${pkgname}.service")
-b2sums=('3506a0d05f98ad7695830de72c4e0f0fc4e259f7cc24a39cc0f6590bda4ed63b3760248f9fe973157b7f2bbed8e1c9087b64f5ead5ac149a63549da455b6c8d0'
+b2sums=('9ca3b3010a1e423710d43f6bcd4d9f1149a0527fec3699349ce8bced99d8c6914ae6b5797fcef38ae2206b00c8fb8a5aefb9f7f2dba3b54d71b56ababc895bbb'
         'df06e89b1b660bc0dfd99303f237593fe28a87ed4f92db207b96217f14f3913f556602104f0b5c82c9199c356c46990e830b6ddc8266e3c6bce00daeef538d0b')
 
 build() {
