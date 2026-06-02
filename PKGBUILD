@@ -1,59 +1,40 @@
-# Maintainer: Daniel Peukert <daniel@peukert.cc>
-_pkgname='mongodb-compass'
-_edition=''
-pkgname="$_pkgname-bin"
-_pkgver='1.49.4'
-pkgver="$(printf '%s' "$_pkgver" | tr '-' '.')"
-pkgrel='1'
-pkgdesc='The official GUI for MongoDB - binary version'
+# Maintainer: "Amhairghin" Oscar Garcia Amor (https://ogarcia.me)
+
+pkgname=mongodb-compass-bin
+pkgver=1.49.8
+pkgrel=1
+pkgdesc="The MongoDB GUI"
 arch=('x86_64')
-url='https://www.mongodb.com/products/compass'
+url="https://www.mongodb.com/products/compass"
 license=('SSPL-1.0')
-depends=(
-	# electron
-	'c-ares' 'dav1d' 'flac' 'fontconfig' 'freetype2' 'gcc-libs' 'glibc' 'gtk3'
-	'harfbuzz' 'icu' 'libdrm' 'libevent' 'libffi' 'libjpeg' 'libpng' 'libpulse'
-	'libwebp' 'libxml2' 'libxslt' 'minizip' 'nss' 'opus' 'zlib'
-	# compass
-	'krb5' 'libsecret'
-)
+depends=('alsa-lib' 'gtk3' 'libsecret' 'libxss' 'libxtst' 'nss')
 optdepends=('org.freedesktop.secrets')
 options=('!debug')
-provides=("$_pkgname=$pkgver")
-conflicts=("$_pkgname")
-_betaprefix="$([[ "$_pkgname" =~ -beta$ ]] && printf 'beta/' || printf '')"
-source=(
-	"$pkgname-$pkgver.rpm::https://downloads.mongodb.com/compass/$_betaprefix$_pkgname-$_pkgver.x86_64.rpm"
-)
-b2sums=('32391e65875caa56adb3a084416d0ced4adb144c6ab96786d69e9d22c3fd8e553970ceb480a40e848521cb4158d029a33e309846db59111eb22f16e36650d103')
-
-check() {
-	_checkoutput="$(ELECTRON_OZONE_PLATFORM_HINT='auto' "$srcdir/usr/lib/$_pkgname/MongoDB Compass$_edition" --no-sandbox --version)"
-	printf '%s\n' "$_checkoutput"
-	printf '%s\n' "$_checkoutput" | grep -q "^MongoDB Compass$_edition $pkgver$"
-}
+source=("https://downloads.mongodb.com/compass/${pkgname%-bin}_${pkgver}_amd64.deb"
+        "https://github.com/mongodb-js/compass/raw/main/LICENSE")
+noextract=("${pkgname%-bin}_${pkgver}_amd64.deb")
+b2sums=('6f9ea2ef2c804a807117cc0f3ed82d6c97634c439439ebaf3fc50020eb874442cebf6410efceb1ae09f7f339be7882031558f778023d66079a2044b44e19c83a'
+        '3db19ea220a8fec79eb55aa2657a3d9c920cf9eaa4ed6737e4a4688e1ba573c36d7de1b52a165340f61c740dfda98f656596b0d8b9f3492cffa0f4e418bf7ef3')
 
 package() {
-	cd "$srcdir/"
+    bsdtar -O -xf "${pkgname%-bin}_${pkgver}"*.deb data.tar.xz | bsdtar -C "$pkgdir" -xJf -
 
-	install -dm755 "$pkgdir/usr/lib/"
-	cp -r "usr/lib/$_pkgname/" "$pkgdir/usr/lib/$_pkgname/"
+    # Permission fix
+    find "${pkgdir}" -type d -exec chmod 755 {} +
+    find "${pkgdir}" -type f -exec chmod 644 {} +
+    chmod +x "${pkgdir}"/usr/lib/mongodb-compass/chrome_crashpad_handler
+    chmod +x "${pkgdir}"/usr/lib/mongodb-compass/chrome-sandbox
+    chmod +x "${pkgdir}"/usr/lib/mongodb-compass/"MongoDB Compass"
 
-	# Fix permissions
-	find "$pkgdir" -type d -exec chmod 755 {} +
-	find "$pkgdir" -type f -exec chmod 644 {} +
-	chmod +x "$pkgdir/usr/lib/$_pkgname/chrome_crashpad_handler"
-	chmod +x "$pkgdir/usr/lib/$_pkgname/chrome-sandbox"
-	chmod +x "$pkgdir/usr/lib/$_pkgname/MongoDB Compass$_edition"
+    # Remove all unnecessary stuff
+    rm -rf "${pkgdir}/usr/share/lintian"
+    rm -rf "${pkgdir}/usr/share/doc"
 
-	install -dm755 "$pkgdir/usr/bin/"
-	ln -sf "/usr/lib/$_pkgname/MongoDB Compass$_edition" "$pkgdir/usr/bin/$_pkgname"
+    # Prevent creation of unnecessary logs in `${HOME}/.mongodb`
+    # --gtk-version=3 --ignore-additional-command-line-flags
+    sed -i 's/Exec=mongodb-compass/Exec=env MONGODB_COMPASS_TEST_LOG_DIR=\/dev\/null mongodb-compass --gtk-version=3 --ignore-additional-command-line-flags/' \
+      "${pkgdir}"/usr/share/applications/mongodb-compass.desktop
 
-	install -Dm644 "usr/share/applications/$_pkgname.desktop" "$pkgdir/usr/share/applications/$_pkgname.desktop"
-	install -Dm644 "usr/share/pixmaps/$_pkgname.png" "$pkgdir/usr/share/pixmaps/$_pkgname.png"
-
-	install -dm755 "$pkgdir/usr/share/licenses/$pkgname/"
-
-	ln -sf "/usr/lib/$_pkgname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/SSPL-1.0"
-	ln -sf "/usr/lib/$_pkgname/LICENSES.chromium.html" "$pkgdir/usr/share/licenses/$pkgname/LICENSES.chromium.html"
+    # Install license
+    install -Dm 644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 }
