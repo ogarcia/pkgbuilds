@@ -1,5 +1,0 @@
-*
-!disable-updater.patch
-!.gitignore
-!PKGBUILD
-!.SRCINFO
