@@ -1,6 +1,6 @@
 pkgbase = conduit
 	pkgdesc = A simple, fast and reliable chat server powered by Matrix
-	pkgver = 0.10.12
+	pkgver = 0.10.13
 	pkgrel = 1
 	url = https://conduit.rs
 	arch = arm
@@ -15,10 +15,10 @@ pkgbase = conduit
 	makedepends = rust
 	depends = gcc-libs
 	options = !lto
-	backup = etc/conduit.conf
-	source = conduit::git+https://gitlab.com/famedly/conduit.git#tag=v0.10.12
+	backup = etc/conduit.toml
+	source = conduit::git+https://gitlab.com/famedly/conduit.git#tag=v0.10.13
 	source = conduit.service
-	b2sums = 9ca3b3010a1e423710d43f6bcd4d9f1149a0527fec3699349ce8bced99d8c6914ae6b5797fcef38ae2206b00c8fb8a5aefb9f7f2dba3b54d71b56ababc895bbb
-	b2sums = df06e89b1b660bc0dfd99303f237593fe28a87ed4f92db207b96217f14f3913f556602104f0b5c82c9199c356c46990e830b6ddc8266e3c6bce00daeef538d0b
+	b2sums = 59a9629f3d0341180a7cbd0c2feb3fb068924ad5e8972fe03873a39c9f978532d675d10481f530091d9a16e6a24ea9320d194e9af1a2f8e83af46da817f3f384
+	b2sums = 2fb72123f70b2521134a5cd92ff62d62f6122e2bae52ce02d821c3716f40bd92c59819bf82a84ebe80e4b9b066b98c7e6309359aeac734ae0f20d63b41906d56
 
 pkgname = conduit
