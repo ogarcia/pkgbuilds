@@ -64,7 +64,7 @@ build() {
   # instala en el repositorio aislado sustituyendo al publicado, con su pom original.
   local _libver _kspom="${srcdir}/afirma-core-keystores.pom"
   _libver=$(sed -n 's:.*<clienteafirma.version>\(.*\)</clienteafirma.version>.*:\1:p' pom.xml)
-  "${_mvn[@]}" -q dependency:get -Dartifact="es.gob.afirma:afirma-core-keystores:${_libver}" -Dtransitive=false
+  "${_mvn[@]}" -q dependency:get -Dartifact="es.gob.afirma:afirma-core-keystores:${_libver}:pom" -Dtransitive=false
   cp "${srcdir}/m2/es/gob/afirma/afirma-core-keystores/${_libver}/afirma-core-keystores-${_libver}.pom" "${_kspom}"
   "${_mvn[@]}" -f afirma-core-keystores/pom.xml clean package -Dmaven.test.skip=true
   "${_mvn[@]}" install:install-file -DpomFile="${_kspom}" \
